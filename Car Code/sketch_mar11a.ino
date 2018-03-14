@@ -20,7 +20,7 @@ void backward()
   digitalWrite(motorR2,HIGH);
   digitalWrite(motorL1,LOW);
   digitalWrite(motorL2,HIGH);
-+}
+}
 
 void right()
 {
