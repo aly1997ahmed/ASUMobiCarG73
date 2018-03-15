@@ -2,7 +2,7 @@
 
 https://www.theengineeringprojects.com/2015/02/ultrasonic-sensor-library-proteus.html
 
-2- The Library of this ultrasonic is included in the folder libraries here 
+2- The Library of this ultrasonic is included in the rar file of libraries here 
 with also other useful libraries so just go copy and paste 
 them in your libraries folder ...
 
