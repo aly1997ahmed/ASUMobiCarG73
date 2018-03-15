@@ -14,7 +14,7 @@
 
 phase1 Done..All files have been uploaded
 
-video         in demo no1. url file 
-code          in car code folder
-simlution     in car phase1 folder
-deisgn        in car design folder 
+- video         in demo no1. url file 
+- code          in car code folder
+- simlution     in car phase1 folder
+- deisgn        in car design folder 
