@@ -97,7 +97,7 @@ void loop() {
   } 
   Serial.print(USReadings());
   Serial.print("\n");
-  if(USReadings() > 200)
+  if(USReadings() > 20)
   {
   if(val=='F')
   {allForward();}
