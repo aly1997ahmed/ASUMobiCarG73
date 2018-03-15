@@ -6,7 +6,6 @@
 #define trig 6
 #define echo 7
 int value ;
-long duration,distance;
 void forward()
 {
   digitalWrite(motorR1,HIGH);
@@ -47,6 +46,7 @@ void stops()
 }
 long USReadings()
 {
+  long duration,distance;
   digitalWrite(trig,LOW);
   delayMicroseconds(2);
   digitalWrite(trig,HIGH);
@@ -54,6 +54,7 @@ long USReadings()
   digitalWrite(trig,LOW);
   duration = pulseIn(echo,HIGH);
   distance= (duration/2)*0.034 ; 
+  return distance ; 
 }
 void setup() {
 Serial.begin(9600);
@@ -67,7 +68,7 @@ pinMode (echo,INPUT );
 }
 
 void loop() {
-  if (distance >20)
+  if (USReadings() >20)
   {
   value=Serial.read();
   switch(value) 
