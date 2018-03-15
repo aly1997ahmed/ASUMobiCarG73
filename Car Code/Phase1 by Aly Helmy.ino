@@ -1,16 +1,17 @@
 
 // Motor A
-const uint8_t pwmLeft = 9;      // ENA - Enable and PWM
-const uint8_t leftForward = 7;  // IN1 - Forward Drive
-const uint8_t leftReverse = 6;  // IN2 - Reverse Drive
+#define pwmLeft 9;      // ENA - Enable and PWM
+#define leftForward 7;  // IN1 - Forward Drive
+#define leftReverse 6;  // IN2 - Reverse Drive
  
 // Motor B
-const uint8_t pwmRight = 3;     // ENB - Enable and PWM
-const uint8_t rightForward = 5; // IN3 - Forward Drive
-const uint8_t rightReverse = 4; // IN4 - Reverse Drive
+#define pwmRight 3;     // ENB - Enable and PWM
+#define rightForward 5; // IN3 - Forward Drive
+#define rightReverse 4; // IN4 - Reverse Drive
 
- #define trig 8
- #define echo 2
+/*ultrasonic*/
+#define trig 8
+#define echo 2
  
 void allStop() {
   digitalWrite(leftForward, LOW);
