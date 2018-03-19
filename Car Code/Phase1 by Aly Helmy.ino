@@ -1,13 +1,13 @@
 
 // Motor A
-#define pwmLeft 9;      // ENA - Enable and PWM
-#define leftForward 7;  // IN1 - Forward Drive
-#define leftReverse 6;  // IN2 - Reverse Drive
+#define pwmLeft 9      // ENA - Enable and PWM
+#define leftForward 7  // IN1 - Forward Drive
+#define leftReverse 6  // IN2 - Reverse Drive
  
 // Motor B
-#define pwmRight 3;     // ENB - Enable and PWM
-#define rightForward 5; // IN3 - Forward Drive
-#define rightReverse 4; // IN4 - Reverse Drive
+#define pwmRight 3    // ENB - Enable and PWM
+#define rightForward 5 // IN3 - Forward Drive
+#define rightReverse 4 // IN4 - Reverse Drive
 
 /*ultrasonic*/
 #define trig 8
