@@ -146,14 +146,22 @@ void loop() {
       Maximum = dist[i];  
       }
     }
+   
+    /*int Break_Checker = 0;*/
+   
     for (true ; true ;delay(100))
     {
       if(Maximum <= USReadings())
-      {allForward(); goto line;}
-    line:  break;
+      {
+       allForward(); 
+      /* Break_Checker = 1;*/
+       goto line;
+      }
     }
     
   }
+
+line:  
 
 delay(100);
 }
