@@ -122,7 +122,7 @@ void loop() {
    else if(val=='S')
    {allStop();}
   }
-  if(check <= 300)
+  if(check <= 20)
   { 
     check = 0;
     allStop();
