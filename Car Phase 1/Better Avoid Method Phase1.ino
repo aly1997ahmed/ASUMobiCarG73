@@ -58,25 +58,31 @@ void skidsteerRight() {
   analogWrite(pwmRight, 255);
 }
 
+
+/*Spin Func to use in avoiding method*/
  void spin() {
   digitalWrite(leftForward, HIGH);
   digitalWrite(leftReverse, LOW);
   digitalWrite(rightForward, LOW);
   digitalWrite(rightReverse, HIGH);
+  
+  /*This should decrease spinning speed!...I don't know actually*/
   analogWrite(pwmLeft, 150);
   analogWrite(pwmRight, 150);
 }
-//////////////// End Functions //////////////////
+//////////////// End Of Functions //////////////////
  
 void setup() {
+   Serial.begin(9600);
+ 
   // Set pins to motor driver (L298) to outputs
-  Serial.begin(9600);
   pinMode(pwmLeft, OUTPUT);
   pinMode(leftForward, OUTPUT);
   pinMode(leftReverse, OUTPUT);
   pinMode(pwmRight, OUTPUT);
   pinMode(rightForward, OUTPUT);
   pinMode(rightReverse, OUTPUT);
+ /*Ultrasonic Pins*/
   pinMode (trig ,OUTPUT);
   pinMode (echo,INPUT );
 }
@@ -97,7 +103,7 @@ void setup() {
 
 void loop() {
 
-  int val;
+  int val = {0};
   if (Serial.available() >0)
   { //take action when a byte is received
       val= Serial.read(); // read the byte
