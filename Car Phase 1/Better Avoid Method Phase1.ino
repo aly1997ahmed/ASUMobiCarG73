@@ -63,8 +63,8 @@ void skidsteerRight() {
   digitalWrite(leftReverse, LOW);
   digitalWrite(rightForward, LOW);
   digitalWrite(rightReverse, HIGH);
-  analogWrite(pwmLeft, 255);
-  analogWrite(pwmRight, 255);
+  analogWrite(pwmLeft, 150);
+  analogWrite(pwmRight, 150);
 }
 //////////////// End Functions //////////////////
  
