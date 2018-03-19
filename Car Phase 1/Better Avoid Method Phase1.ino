@@ -107,28 +107,43 @@ void loop() {
   long check = USReadings();
   if(check > 20)
   {
-  if(val=='F')
-   {allForward();}
+    if(val=='F')
+     {
+     allForward();
+     }
+
+     else if(val=='B')
+     {
+      allReverse(); 
+     }
+
+     else if(val=='R')
+     {
+      skidsteerRight(); 
+     }
+
+     else if(val=='L')
+     {
+      skidsteerLeft();
+     }
   
-   else if(val=='B')
-   {allReverse(); }
-  
-   else if(val=='R')
-   {skidsteerRight(); }
-  
-   else if(val=='L')
-   {skidsteerLeft();}
-  
-   else if(val=='S')
-   {allStop();}
+   /////////////////////////////////////////
+   /*This Condition is not included in the car yet*/
+   
+     else if(val=='S')
+     {
+      allStop();
+     }
   }
   if(check <= 20)
   { 
     check = 0;
     allStop();
     delay(500);  
+   
     float dist[10] = {0}; /*Array to store readings*/
     float Maximum = 0 ;
+   
     spin();
     
     /*for loop to store diff readings after 285 mseconds*/
@@ -136,8 +151,14 @@ void loop() {
     for(int i = 0 ; i < 10 ; i++)
     {    
       dist[i]= USReadings();
+     
+     /*Time Interval Between tow diff readings*/
+     
       delay(285); 
     }
+   
+   /*To Get Max Value in compare*/
+   
     float compare = dist[0];
     for(int i = 1 ; i < 10 ; i++)
     {
@@ -155,13 +176,23 @@ void loop() {
       {
        allForward(); 
       /* Break_Checker = 1;*/
-       goto line;
+       goto line; //best way to get out the if struct cause it's always true
       }
     }
     
   }
 
 line:  
+ 
+ /*We better set the value of all variables used above to zero*/
+ /*
+ for(int i = 0 ; i < 10 ; i ++)
+ {
+ dist[i] = 0 ;
+ }
+ Maximum = 0;
+ compare = 0;
+ */
 
 delay(100);
 }
