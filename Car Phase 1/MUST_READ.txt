@@ -7,5 +7,7 @@ with also other useful libraries so just go copy and paste
 them in your libraries folder ...
 
 3- the code here is different from the original code because i wrote it myself
+3*- Code Titled "Better Avoid Method Phase1" is a simulated code only and not
+examined yet
 4- Have Fun...
 
