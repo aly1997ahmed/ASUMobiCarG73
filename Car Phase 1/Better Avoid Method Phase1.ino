@@ -141,7 +141,8 @@ void loop() {
       allStop();
      }
   }
-  if(check <= 20)
+ int Break_Checker = 0;
+  if(check <= 20 && Break_Checker == 0)
   { 
     check = 0;
     allStop();
@@ -174,31 +175,31 @@ void loop() {
       }
     }
    
-    /*int Break_Checker = 0;*/
+    /**/
    
     for (true ; true ;delay(100))
     {
       if(Maximum <= USReadings())
       {
        allForward(); 
-      /* Break_Checker = 1;*/
-       goto line; //best way to get out the if struct cause it's always true
+       Break_Checker = 1;
+       break;
       }
     }
     
   }
 
-line:  
  
- /*We better set the value of all variables used above to zero*/
- /*
+/*RESET Previous Variables to zero*/
+ 
  for(int i = 0 ; i < 10 ; i ++)
  {
  dist[i] = 0 ;
  }
- Maximum = 0;
- compare = 0;
- */
+ Break_Checker = 0 ;
+ Maximum = 0 ;
+ compare = 0 ;
+
 
 delay(100);
 }
