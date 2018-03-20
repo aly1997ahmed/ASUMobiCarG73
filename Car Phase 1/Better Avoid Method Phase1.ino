@@ -190,15 +190,6 @@ void loop() {
   }
 
  
-/*RESET Previous Variables to zero*/
- 
- for(int i = 0 ; i < 10 ; i ++)
- {
- dist[i] = 0 ;
- }
- Break_Checker = 0 ;
- Maximum = 0 ;
- compare = 0 ;
 
 
 delay(100);
