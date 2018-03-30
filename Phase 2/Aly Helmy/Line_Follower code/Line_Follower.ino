@@ -9,6 +9,7 @@
 
 */        
 
+
 //Declaring Pins For IR Inputs//
 #define L2 8
 #define L1 7
@@ -33,9 +34,10 @@
 
 
  /*UltraSonic Readings*/
- long duration,distance;
+
  long USReadings()
 {
+  long duration,distance;
   digitalWrite(trig,LOW);
   delayMicroseconds(2);
   digitalWrite(trig,HIGH);
@@ -76,35 +78,35 @@ void allReverse() {
 }
  
 void steerLeft() {
-  digitalWrite(leftForward, LOW);
+  analogWrite(leftForward, 30);
   digitalWrite(leftReverse, LOW);
-  digitalWrite(rightForward, 160);
+  analogWrite(rightForward, 160);
   digitalWrite(rightReverse, LOW);
   analogWrite(pwmLeft, 255);
   analogWrite(pwmRight, 255);
 }
 void sharpLeft() {
   digitalWrite(leftForward, LOW);
-  digitalWrite(leftReverse, LOW);
-  digitalWrite(rightForward, 80);
+  analogWrite(leftReverse, 50);
+  analogWrite(rightForward, 80);
   digitalWrite(rightReverse, LOW);
   analogWrite(pwmLeft, 255);
   analogWrite(pwmRight, 255);
 }
  
 void steerRight() {
-  digitalWrite(leftForward, 160);
+  analogWrite(leftForward, 160);
   digitalWrite(leftReverse, LOW);
-  digitalWrite(rightForward, LOW);
+  analogWrite(rightForward, 30);
   digitalWrite(rightReverse, LOW);
   analogWrite(pwmLeft, 255);
   analogWrite(pwmRight, 255);
 }
 void sharpRight() {
-  digitalWrite(leftForward, 80);
+  analogWrite(leftForward, 80);
   digitalWrite(leftReverse, LOW);
   digitalWrite(rightForward, LOW);
-  digitalWrite(rightReverse, LOW);
+  analogWrite(rightReverse, 50);
   analogWrite(pwmLeft, 255);
   analogWrite(pwmRight, 255);
 }
@@ -113,11 +115,11 @@ void setup()
 {
   Serial.begin(9600);
 
-    /*For UltraSonic*/
+  /*For UltraSonic*/
   pinMode (trig ,OUTPUT);
   pinMode (echo,INPUT );
 
-  /*For IR Sensors*/
+ /*For IR Sensors*/
  pinMode(L2,INPUT);
  pinMode(L1,INPUT);
  pinMode(M,INPUT);
@@ -144,7 +146,7 @@ void loop()
  {
   
   Move::allStop();
-   int val;
+  int val;
   if (Serial.available() > 0)
   {
     //take action when a byte is received
@@ -155,7 +157,7 @@ void loop()
   Serial.print(USReadings());
   Serial.print("\t");
   
-  if(USReadings() > 300)
+  if(USReadings() > 30)
   {
     
   if(val=='F')
@@ -194,19 +196,19 @@ void loop()
        {
           Move::steerLeft();
        }
-      
+
+       //right turn
+       else if(digitalRead(R1)==LOW && digitalRead(R2)==HIGH)
+       {
+          Move::steerRight();
+       }
+       
        //Very sharp left turn
        else if(digitalRead(L1)==LOW && digitalRead(L2)==LOW)
        {
           Move::sharpLeft();
        }
-      
-       //right turn
-       else if(digitalRead(R1)==LOW && digitalRead(L2)==HIGH)
-       {
-          Move::steerRight();
-       }
-      
+  
        //Very sharp right turn
        else if(digitalRead(R1)==LOW && digitalRead(R2)==LOW)
        {
@@ -215,6 +217,6 @@ void loop()
  }
 
   
- delay(10);
+ delay(50);
 }
 
