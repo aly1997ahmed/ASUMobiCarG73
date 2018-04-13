@@ -24,15 +24,15 @@
 #define echo 2
 
 //Motor A
-#define leftForward 11
-#define leftReverse 9
-#define pwmLeft 12
+#define leftForward 10
+#define leftReverse 8
+#define pwmLeft 11
 
 
 //Motor B
-#define rightForward 10
+#define rightForward 9
 #define rightReverse 6
-#define pwmRight 13
+#define pwmRight 12
 
 
  /*UltraSonic Readings*/
@@ -230,7 +230,10 @@ void loop()
        {
         Move::allForward();
        }
-       
+       else if(digitalRead(L3)==LOW && digitalRead(L2)==HIGH && digitalRead(L1)==HIGH && digitalRead(R1)==HIGH && digitalRead(R2)==HIGH && digitalRead(R3)==LOW)
+       {
+        Move::allForward();
+       }
        else if(digitalRead(L3)==LOW && digitalRead(L2)==LOW && digitalRead(L1)==LOW && digitalRead(R1)==LOW && digitalRead(R2)==LOW && digitalRead(R3)==LOW)
        {
         Move::allForward();
@@ -243,7 +246,7 @@ void loop()
         {
           Move::sharpRight();
         }
-        else if(digitalRead(L3)==HIGH && digitalRead(L2)==HIGH && digitalRead(L1)==LOW && digitalRead(R1)==LOW && digitalRead(R2)==HIGH && digitalRead(R3)==HIGH)
+       else if(digitalRead(L3)==HIGH && digitalRead(L2)==HIGH && digitalRead(L1)==LOW && digitalRead(R1)==LOW && digitalRead(R2)==HIGH && digitalRead(R3)==HIGH)
         {
           Move::allForward();
         }
@@ -267,8 +270,42 @@ void loop()
           {
             Move::steerLeft();         
           }
-  
-
+        else if(digitalRead(L3)==LOW && digitalRead(L2)==HIGH && digitalRead(L1)==LOW && digitalRead(R1)==HIGH && digitalRead(R2)==HIGH && digitalRead(R3)==HIGH)
+          {
+            Move::sharpLeft();         
+          }
+        else if(digitalRead(L3)==HIGH && digitalRead(L2)==HIGH && digitalRead(L1)==HIGH && digitalRead(R1)==LOW && digitalRead(R2)==HIGH && digitalRead(R3)==LOW)
+          {
+            Move::sharpRight();
+          }
+        else if(digitalRead(L3)==HIGH && digitalRead(L2)==HIGH && digitalRead(L1)==HIGH && digitalRead(R1)==HIGH && digitalRead(R2)==HIGH && digitalRead(R3)==LOW)
+          {
+            Move::sharpRight();
+          }
+         else if(digitalRead(L3)==LOW && digitalRead(L2)==HIGH && digitalRead(L1)==HIGH && digitalRead(R1)==HIGH && digitalRead(R2)==HIGH && digitalRead(R3)==HIGH)
+          {
+            Move::sharpLeft();
+          }
+         else if(digitalRead(L3)==LOW && digitalRead(L2)==LOW && digitalRead(L1)==HIGH && digitalRead(R1)==HIGH && digitalRead(R2)==HIGH && digitalRead(R3)==HIGH)
+          {
+            Move::steer90Left();      
+          }
+         else if(digitalRead(L3)==HIGH && digitalRead(L2)==HIGH && digitalRead(L1)==HIGH && digitalRead(R1)==HIGH && digitalRead(R2)==LOW && digitalRead(R3)==LOW)
+          {
+            Move::steer90Right();
+          }
+                 else if(digitalRead(L3)==HIGH && digitalRead(L2)==HIGH && digitalRead(L1)==LOW && digitalRead(R1)==LOW && digitalRead(R2)==LOW && digitalRead(R3)==LOW)
+          {
+            Move::steer90Right();
+          }
+         else if(digitalRead(L3)==LOW && digitalRead(L2)==LOW && digitalRead(L1)==LOW && digitalRead(R1)==LOW && digitalRead(R2)==HIGH && digitalRead(R3)==HIGH)
+          {
+            Move::steer90Left();      
+          }
+         else if(digitalRead(L3)==LOW && digitalRead(L2)==LOW && digitalRead(L1)==HIGH && digitalRead(R1)==HIGH && digitalRead(R2)==LOW && digitalRead(R3)==LOW)
+          {
+            Move::allForward();
+          }
   }
     else Move::allForward();   
  }
