@@ -2,8 +2,6 @@
 /* The IR sensors arrangment is in order:
       L3   L2    L1    R1    R2    R3
 
-  L1, M and R1 determine the track.....
-  L2 and R2 is used for  sharp turns.
 
  "" I assumed that the IR sensor shows low when detetcting a black surface. ""
 
@@ -90,10 +88,10 @@ void steerLeft(int right , int left) {
 void steer90Left() {
   digitalWrite(leftReverse, LOW);
   digitalWrite(leftForward, LOW);
-  analogWrite(rightForward, 120);
+  digitalWrite(rightForward, HIGH);
   digitalWrite(rightReverse, LOW);
   analogWrite(pwmLeft, 0);
-  analogWrite(pwmRight, 255);
+  analogWrite(pwmRight, 120);
 }
 
 void sharpLeft() {
@@ -101,8 +99,8 @@ void sharpLeft() {
   digitalWrite(leftReverse, HIGH);
   digitalWrite(rightForward, HIGH);
   digitalWrite(rightReverse, LOW);
-  analogWrite(pwmLeft, 70);
-  analogWrite(pwmRight, 70);
+  analogWrite(pwmLeft, 100);
+  analogWrite(pwmRight, 80);
 }
 
 void steerRight(int right , int left) {
@@ -127,8 +125,8 @@ void sharpRight()
   digitalWrite(leftReverse, LOW);
   digitalWrite(rightForward, LOW);
   digitalWrite(rightReverse, HIGH);
-  analogWrite(pwmLeft, 70);
-  analogWrite(pwmRight, 70);
+  analogWrite(pwmLeft, 80);
+  analogWrite(pwmRight, 100);
 }
 int Speed(int value)
 {
@@ -176,13 +174,13 @@ if(Right == HIGH && Left == HIGH && Middle == LOW)
 }
 */
 
-int val;
-int left = 255 ;
-int right = 255;
+int val = 0;
+int left = 180 ;
+int right = 180;
 void loop()
 {
 
-  if (Serial.available() > 0)
+  if (true)
   {
     //take action when a byte is received
     val = Serial.read(); // read the byte
@@ -197,10 +195,10 @@ void loop()
         Move::allReverse(right, left);
         break;
       case 'L':
-        Move::steerLeft(right, left);
+        Move::steerLeft(right, 0);
         break;
       case 'R':
-        Move::steerRight(right, left);
+        Move::steerRight(0, left);
         break;
       case 'S':
         Move::allStop();
@@ -224,73 +222,84 @@ void loop()
 
       //////////////////////////////////////////////////////////////////*LINE FOLLOWER*/////////////////////////////////////////////////////////////////////////////////////////
       case 'X':
-
+        Move::allStop();
+        delay(1000);
+        left = 0; right = 0;
         while (1)
 
         {
+
           val = Serial.read();
           if (val == 'x')
           {
             break;
           }
 
-          if (digitalRead(L3) == HIGH && digitalRead(L2) == HIGH && digitalRead(L1) == HIGH && digitalRead(R1) == HIGH && digitalRead(R2) == HIGH && digitalRead(R3) == HIGH)
+          else if (digitalRead(L3) == HIGH && digitalRead(L2) == HIGH && digitalRead(L1) == HIGH && digitalRead(R1) == HIGH && digitalRead(R2) == HIGH && digitalRead(R3) == HIGH)
           {
-            Move::allForward(255, 255);  Serial.println("all high");
+            Move::allForward(110, 110);  Serial.println("all high");
           }
-          if (digitalRead(L3) == LOW && digitalRead(L2) == HIGH && digitalRead(L1) == HIGH && digitalRead(R1) == HIGH && digitalRead(R2) == HIGH && digitalRead(R3) == LOW)
+          else if (digitalRead(L3) == LOW && digitalRead(L2) == HIGH && digitalRead(L1) == HIGH && digitalRead(R1) == HIGH && digitalRead(R2) == HIGH && digitalRead(R3) == LOW)
           {
-            Move::allForward(255, 255);
+            Move::allForward(110, 110);
           }
-          if (digitalRead(L3) == LOW && digitalRead(L2) == LOW && digitalRead(L1) == LOW && digitalRead(R1) == LOW && digitalRead(R2) == LOW && digitalRead(R3) == LOW)
+          else if (digitalRead(L3) == LOW && digitalRead(L2) == LOW && digitalRead(L1) == LOW && digitalRead(R1) == LOW && digitalRead(R2) == LOW && digitalRead(R3) == LOW)
           {
-            Move::allForward(255, 255);   Serial.println("all low");
+            Move::allForward(110, 110);   Serial.println("all low");
           }
-          if (digitalRead(L3) == HIGH && digitalRead(L2) == HIGH && digitalRead(L1) == LOW && digitalRead(R1) == HIGH && digitalRead(R2) == HIGH && digitalRead(R3) == HIGH)
+          else if (digitalRead(L3) == HIGH && digitalRead(L2) == HIGH && digitalRead(L1) == LOW && digitalRead(R1) == HIGH && digitalRead(R2) == HIGH && digitalRead(R3) == HIGH)
           {
             Move::sharpLeft();
           }
-          if (digitalRead(L3) == HIGH && digitalRead(L2) == HIGH && digitalRead(L1) == HIGH && digitalRead(R1) == LOW && digitalRead(R2) == HIGH && digitalRead(R3) == HIGH)
+          else if (digitalRead(L3) == HIGH && digitalRead(L2) == HIGH && digitalRead(L1) == HIGH && digitalRead(R1) == LOW && digitalRead(R2) == HIGH && digitalRead(R3) == HIGH)
           {
             Move::sharpRight();
           }
-          if (digitalRead(L3) == HIGH && digitalRead(L2) == HIGH && digitalRead(L1) == LOW && digitalRead(R1) == LOW && digitalRead(R2) == HIGH && digitalRead(R3) == HIGH)
+          else if (digitalRead(L3) == HIGH && digitalRead(L2) == HIGH && digitalRead(L1) == LOW && digitalRead(R1) == LOW && digitalRead(R2) == HIGH && digitalRead(R3) == HIGH)
           {
-            Move::allForward(255, 255);
+            Move::allForward(110, 110);
           }
-          if (digitalRead(L3) == HIGH && digitalRead(L2) == LOW && digitalRead(L1) == LOW && digitalRead(R1) == LOW && digitalRead(R2) == LOW && digitalRead(R3) == HIGH)
+          else if (digitalRead(L3) == HIGH && digitalRead(L2) == LOW && digitalRead(L1) == LOW && digitalRead(R1) == LOW && digitalRead(R2) == LOW && digitalRead(R3) == HIGH)
           {
-            Move::allForward(255, 255);
+            Move::allForward(110, 110);
           }
-          if (digitalRead(L3) == LOW && digitalRead(L2) == LOW && digitalRead(L1) == LOW && digitalRead(R1) == HIGH && digitalRead(R2) == HIGH && digitalRead(R3) == HIGH)
+          else if (digitalRead(L3) == LOW && digitalRead(L2) == LOW && digitalRead(L1) == LOW && digitalRead(R1) == HIGH && digitalRead(R2) == HIGH && digitalRead(R3) == HIGH)
           {
             Move::steer90Left();
           }
-          if (digitalRead(L3) == HIGH && digitalRead(L2) == HIGH && digitalRead(L1) == HIGH && digitalRead(R1) == LOW && digitalRead(R2) == LOW && digitalRead(R3) == LOW)
+          else if (digitalRead(L3) == HIGH && digitalRead(L2) == HIGH && digitalRead(L1) == HIGH && digitalRead(R1) == LOW && digitalRead(R2) == LOW && digitalRead(R3) == LOW)
           {
             Move::steer90Right();
           }
-          if (digitalRead(L3) == HIGH && digitalRead(L2) == HIGH && digitalRead(L1) == HIGH && digitalRead(R1) == LOW && digitalRead(R2) == LOW && digitalRead(R3) == HIGH)
+          else if (digitalRead(L3) == HIGH && digitalRead(L2) == HIGH && digitalRead(L1) == HIGH && digitalRead(R1) == LOW && digitalRead(R2) == LOW && digitalRead(R3) == HIGH)
           {
-            Move::steerRight(120, 80);
+            Move::steerRight(90, 100);
           }
-          if (digitalRead(L3) == HIGH && digitalRead(L2) == LOW && digitalRead(L1) == LOW && digitalRead(R1) == HIGH && digitalRead(R2) == HIGH && digitalRead(R3) == HIGH)
+          else if (digitalRead(L3) == HIGH && digitalRead(L2) == LOW && digitalRead(L1) == HIGH && digitalRead(R1) == HIGH && digitalRead(R2) == HIGH && digitalRead(R3) == HIGH)
           {
-            Move::steerLeft(82, 120);
+            Move::steer90Left();
           }
-          if (digitalRead(L3) == LOW && digitalRead(L2) == HIGH && digitalRead(L1) == LOW && digitalRead(R1) == HIGH && digitalRead(R2) == HIGH && digitalRead(R3) == HIGH)
+          else if (digitalRead(L3) == HIGH && digitalRead(L2) == HIGH && digitalRead(L1) == HIGH && digitalRead(R1) == HIGH && digitalRead(R2) == LOW && digitalRead(R3) == HIGH)
+          {
+            Move::steer90Right();
+          }
+          else if (digitalRead(L3) == HIGH && digitalRead(L2) == LOW && digitalRead(L1) == LOW && digitalRead(R1) == HIGH && digitalRead(R2) == HIGH && digitalRead(R3) == HIGH)
+          {
+            Move::steerLeft(100, 90);
+          }
+          else if (digitalRead(L3) == LOW && digitalRead(L2) == HIGH && digitalRead(L1) == LOW && digitalRead(R1) == HIGH && digitalRead(R2) == HIGH && digitalRead(R3) == HIGH)
           {
             Move::sharpLeft();
           }
-          if (digitalRead(L3) == HIGH && digitalRead(L2) == HIGH && digitalRead(L1) == HIGH && digitalRead(R1) == LOW && digitalRead(R2) == HIGH && digitalRead(R3) == LOW)
+          else if (digitalRead(L3) == HIGH && digitalRead(L2) == HIGH && digitalRead(L1) == HIGH && digitalRead(R1) == LOW && digitalRead(R2) == HIGH && digitalRead(R3) == LOW)
           {
             Move::sharpRight();
           }
-          if (digitalRead(L3) == HIGH && digitalRead(L2) == HIGH && digitalRead(L1) == HIGH && digitalRead(R1) == HIGH && digitalRead(R2) == HIGH && digitalRead(R3) == LOW)
+          else if (digitalRead(L3) == HIGH && digitalRead(L2) == HIGH && digitalRead(L1) == HIGH && digitalRead(R1) == HIGH && digitalRead(R2) == HIGH && digitalRead(R3) == LOW)
           {
             Move::sharpRight();
           }
-          if (digitalRead(L3) == LOW && digitalRead(L2) == HIGH && digitalRead(L1) == HIGH && digitalRead(R1) == HIGH && digitalRead(R2) == HIGH && digitalRead(R3) == HIGH)
+          else if (digitalRead(L3) == LOW && digitalRead(L2) == HIGH && digitalRead(L1) == HIGH && digitalRead(R1) == HIGH && digitalRead(R2) == HIGH && digitalRead(R3) == HIGH)
           {
             Move::sharpLeft();
           }
@@ -298,31 +307,73 @@ void loop()
           {
             Move::steer90Left();
           }
-          if (digitalRead(L3) == HIGH && digitalRead(L2) == HIGH && digitalRead(L1) == HIGH && digitalRead(R1) == HIGH && digitalRead(R2) == LOW && digitalRead(R3) == LOW)
+          else if (digitalRead(L3) == HIGH && digitalRead(L2) == HIGH && digitalRead(L1) == HIGH && digitalRead(R1) == HIGH && digitalRead(R2) == LOW && digitalRead(R3) == LOW)
           {
             Move::steer90Right();
           }
-          if (digitalRead(L3) == HIGH && digitalRead(L2) == HIGH && digitalRead(L1) == LOW && digitalRead(R1) == LOW && digitalRead(R2) == LOW && digitalRead(R3) == LOW)
+          else if (digitalRead(L3) == HIGH && digitalRead(L2) == HIGH && digitalRead(L1) == LOW && digitalRead(R1) == LOW && digitalRead(R2) == LOW && digitalRead(R3) == LOW)
           {
             Move::steer90Right();
           }
-          if (digitalRead(L3) == LOW && digitalRead(L2) == LOW && digitalRead(L1) == LOW && digitalRead(R1) == LOW && digitalRead(R2) == HIGH && digitalRead(R3) == HIGH)
+          else if (digitalRead(L3) == LOW && digitalRead(L2) == LOW && digitalRead(L1) == LOW && digitalRead(R1) == LOW && digitalRead(R2) == HIGH && digitalRead(R3) == HIGH)
           {
             Move::steer90Left();
           }
-          if (digitalRead(L3) == LOW && digitalRead(L2) == LOW && digitalRead(L1) == HIGH && digitalRead(R1) == HIGH && digitalRead(R2) == LOW && digitalRead(R3) == LOW)
+          else if (digitalRead(L3) == LOW && digitalRead(L2) == LOW && digitalRead(L1) == HIGH && digitalRead(R1) == HIGH && digitalRead(R2) == LOW && digitalRead(R3) == LOW)
           {
-            Move::allForward(255, 255);
+            Move::allForward(110, 110);
+          }
+          else if (digitalRead(L3) == LOW && digitalRead(L2) == LOW && digitalRead(L1) == LOW && digitalRead(R1) == LOW && digitalRead(R2) == LOW && digitalRead(R3) == HIGH)
+          {
+            Move::steer90Left();
+          }
+          else if (digitalRead(L3) == HIGH && digitalRead(L2) == LOW && digitalRead(L1) == LOW && digitalRead(R1) == LOW && digitalRead(R2) == LOW && digitalRead(R3) == LOW)
+          {
+            Move::steer90Right();
+          }
+          else if (digitalRead(L3) == LOW && digitalRead(L2) == LOW && digitalRead(L1) == HIGH && digitalRead(R1) == HIGH && digitalRead(R2) == HIGH && digitalRead(R3) == LOW)
+          {
+            Move::sharpLeft();
+          }
+          else if (digitalRead(L3) == HIGH && digitalRead(L2) == HIGH && digitalRead(L1) == LOW && digitalRead(R1) == LOW && digitalRead(R2) == LOW && digitalRead(R3) == HIGH)
+          {
+            Move::sharpRight();
+          }
+          else if (digitalRead(L3) == LOW && digitalRead(L2) == LOW && digitalRead(L1) == HIGH && digitalRead(R1) == HIGH && digitalRead(R2) == HIGH && digitalRead(R3) == LOW)
+          {
+            Move::sharpLeft();
           }
 
+          else if (digitalRead(L3) == LOW && digitalRead(L2) == HIGH && digitalRead(L1) == HIGH && digitalRead(R1) == HIGH && digitalRead(R2) == LOW && digitalRead(R3) == LOW)
+          {
+            Move::sharpLeft();
+          }
+          else if (digitalRead(L3) == LOW && digitalRead(L2) == LOW && digitalRead(L1) == HIGH && digitalRead(R1) == HIGH && digitalRead(R2) == HIGH && digitalRead(R3) == LOW)
+          {
+            Move::sharpRight();
+          }
+          /*011011*/
+          else if (digitalRead(L3) == LOW && digitalRead(L2) == HIGH && digitalRead(L1) == HIGH && digitalRead(R1) == LOW && digitalRead(R2) == HIGH && digitalRead(R3) == HIGH)
+          {
+            Move::allForward(110, 110);
+          }
+          else if (digitalRead(L3) == HIGH && digitalRead(L2) == HIGH && digitalRead(L1) == LOW && digitalRead(R1) == HIGH && digitalRead(R2) == HIGH && digitalRead(R3) == LOW)
+          {
+            Move::allForward(110, 110);
+          }/*110110*/
+    
           else Move::allStop();
         }
+
         break;
     }
 
 
   }
+  else Move::allStop();
+  delay(0);
 }
+
 
 
 
