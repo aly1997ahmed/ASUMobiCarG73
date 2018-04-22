@@ -14,7 +14,7 @@
 
 phase1 "easy driving " Done. All files have been uploaded in " phase1 " folder
 
-- video         www.youtube.com/watch?v=mFDHnx34GeU
+- video         https://www.youtube.com/watch?v=mFDHnx34GeU
 - code          in "car code" folder
 - simulation     in "car phase1" folder
 - deisgn        in "car design" folder 
