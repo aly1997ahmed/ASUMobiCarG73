@@ -12,9 +12,17 @@
 
 # Rc Car Project ver1.0
 
-phase1 Done..All files have been uploaded
+phase1 "easy driving " Done. All files have been uploaded in " phase1 " folder
 
 - video         www.youtube.com/watch?v=mFDHnx34GeU
-- code          in car code folder
-- simlution     in car phase1 folder
-- deisgn        in car design folder 
+- code          in "car code" folder
+- simulation     in "car phase1" folder
+- deisgn        in "car design" folder 
+
+
+phase2 "line follower" Done. All files have been uploaded in " phase2 " folder
+
+- video          https://www.youtube.com/watch?v=4rc23PB3HAs
+- code           in "code" folder
+- simulation      in "simulation" folder
+- design         in "final design" folder
