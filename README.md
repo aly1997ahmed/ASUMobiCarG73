@@ -27,3 +27,12 @@ phase2 "line follower" Done. All files have been uploaded in " phase2 " folder
 - code           in "code" folder
 - simulation      in "simulation" folder
 - design         in "final design" folder
+
+# Rc Car Project ver3.0
+
+phase3 "ِAccurate robot" Done. All files have been uploaded in " phase3 " folder
+
+- video          https://www.youtube.com/watch?v=a5rOWvjGBhc
+- code           in "code" folder
+- simulation     NULL
+- design         The Same Design As Phase 2 
